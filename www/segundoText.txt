@@ -1,0 +1,12 @@
+<p><strong>Study summary</strong></p>
+<p>Cohort of 137 patients diagnosed with metastatic melanoma between the years 1975 and 2011. The average age &plusmn; standard deviation (range) at diagnosis of metastases was 62.3 &plusmn; 13.7 (25&ndash;89) years, and the cohort had a preponderance of male individuals (65%). Among patients with available overall survival (OS) information, 50% survived less than 5 years.</p>
+<p>The samples comprised fresh frozen metastatic tissues from lymph node (126), subcutaneous (7), cutaneous (1), and visceral (3), while for five samples the origin is unknown. These samples were collected before patient&rsquo;s treatment. Mutational status: &nbsp;50 tumors BRAF (V600E) mutated; 36 with NRAS Q61K/R mutation, and 37 tumors had wild type variants for both mutations.</p>
+<p><strong>Mass spectrometer</strong></p>
+<p>Q Exactive HF-X (Orbitrap analyzer)</p>
+<p><strong>MS data acquisition and quantification</strong></p>
+<p>Data Acquisition method: Data Dependent Acquisition (DDA) &ndash; Top 20</p>
+<p>Quantification method: TMT&nbsp; (11 plex)</p>
+<p>Software: Proteome Discovery 2.3</p>
+<p>Search engine: Sequest HT using UniProtKB human database (released 2018-10-01) with isoforms.</p>
+<p>Normalization: Sample median subtraction</p>
+<p>&nbsp;</p>

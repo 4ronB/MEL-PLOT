@@ -1,0 +1,11 @@
+<p><strong>Study summary</strong></p>
+<p>Lymph node metastasis samples collected from 111 patients (68 men and 43 women) diagnosed with metastatic melanoma between 1975 and 2011 (Stage 3 and 4). The average age &plusmn; standard deviation (range) at diagnosis of lymph node metastasis was 62.4 &plusmn; 13.7 (25&ndash;89) years. The time elapsed to progression from primary tumor to lymph node metastasis was 5.0 &plusmn; 5.6 (0&ndash;18.0) years and overall survival was 7.9 &plusmn; 6.8 (0.2&ndash;43.0) years. The dominant histotypes of primary tumors were Superficial Spreading Melanoma (SSN) and Nodular Melanoma (NM). The cohort included 59% of patients with wild type BRAF status and 36% of patients with V600E mutation in the BRAF gene (4% had V600A or V600K mutation).</p>
+<p><strong>Mass spectrometer</strong></p>
+<p>Q-Exactive Plus (Orbitrap analyzer)</p>
+<p><strong>MS data acquisition and quantification</strong></p>
+<p>Data Acquisition method: Data Dependent Acquisition (DDA) - Top 15</p>
+<p>Quantification method: Label-free</p>
+<p>Software: Proteome Discovery 2.1</p>
+<p>Search engine: Sequest HT using UniProtKB human database (released May 2016) excluding isoforms.</p>
+<p>Normalization: Sample median subtraction</p>
+<p>&nbsp;</p>

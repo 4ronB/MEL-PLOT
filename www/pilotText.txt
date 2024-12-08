@@ -1,0 +1,12 @@
+<p><strong>Study summary</strong></p>
+<p>90 FFPE samples of primary, lymph node and cutaneous metastasis tumors collected from 77 patients (38 men and 39 women) diagnosed with melanoma between 2005 and 2020 (with disease stage ranging between 1 and 4). The average age &plusmn; standard deviation (range) at diagnosis of primary was 64.3 &plusmn; 10.9 (31&ndash;91) years. The disease-free survival from primary to metastasis was 1.4 &plusmn; 2.3 (0&ndash;12.0) years and overall survival was 4.3 &plusmn; 3.7 (0&ndash;17.0) years. The dominant histotypes of primary tumors were Superficial Spreading Melanoma (SSM) with vertical growth and Nodular Melanoma (NM). The cohort included 36 patients with wild type BRAF status and 38 patients with V600E mutation in the BRAF gene (1 patient had D587G mutation). Patients were treatment-naive at the time of sample collection, but multiple have received treatment afterwards, including immunotherapy, targeted therapy, and other therapies (irradiation, chemotherapy, IFN therapy and electrochemotherapy). 18 patients did not receive any treatments.</p>
+<p><em>&nbsp;</em></p>
+<p><strong>Mass spectrometer</strong></p>
+<p>Q-Exactive HF-X (Orbitrap analyzer)</p>
+<p>&nbsp;</p>
+<p><strong>MS data acquisition and quantification</strong></p>
+<p>Data Acquisition method: Data Dependent Acquisition (DDA) - Top 20</p>
+<p>Quantification method: Label-free</p>
+<p>Software: Proteome Discoverer 2.4</p>
+<p>Search engine: UniProt human database (2020/05/26) and two spectral libraries such as the Proteome tools HCD 28 PD and NIST Human Orbitrap HCD</p>
+<p>Normalization: Sample median subtraction and centering around the global median</p>

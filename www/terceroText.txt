@@ -1,0 +1,13 @@
+<p><strong>Study summary</strong></p>
+<p>74 fresh-frozen samples of distant metastases collected after death from 22 patients (15 men and 7 women) diagnosed with melanoma. The metastases originated from various tissues such as lung (14), liver (11), adrenal (6), lien (6), and kidney (5). The average age &plusmn; standard deviation (range) at diagnosis of primary was 52.6 &plusmn; 14.5 (32&ndash;78) years. The number of metastases per patient ranged between 1 and 9. The overall survival was 4.3 &plusmn; 3.2 (0.7&ndash;11.4) years. The dominant histotypes of primary tumors were SSM and NM. The cohort included 7 patients with wild type BRAF status, 14 patients with BRAF V600E, 1 patient with BRAF K601E and 2 patients with BRAF V600K. Among patients with WT BRAF, 3 patients had NRAS mutation (1 Q61K and 2 Q61R). The majority of patients were treated before sample collection, which included treatment with IFN, chemotherapy, targeted therapy (vemurafenib). 3 patients did not receive any treatments and information is not available for 4 patients.</p>
+<p><em>&nbsp;</em></p>
+<p><strong>Mass spectrometer</strong></p>
+<p>Q-Exactive HF-X (Orbitrap analyzer)</p>
+<p>&nbsp;</p>
+<p><strong>MS data acquisition and quantification</strong></p>
+<p>Data Acquisition method: Data Independent Acquisition (DIA)</p>
+<p>Quantification method: Label-free</p>
+<p>Software:</p>
+<p>Search engine:</p>
+<p>Normalization: Sample median subtraction and centering around the global median</p>
+<p><em>Manuscript is currently under preparation</em></p>

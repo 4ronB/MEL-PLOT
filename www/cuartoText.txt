@@ -1,0 +1,16 @@
+<p><strong>Study summary:</strong></p>
+<p>The Cuarto cohort of samples relates to a prospective study on melanoma, which involved obtaining a total of 77 surgically resected tissue samples from 47 melanoma patients. The samples were categorized based on their source, such as non-tumor (NT) samples (n=11), tumor microenvironment (TM) samples (n=6), primary tumor (PT) samples (n=16), local recurrences (LR) samples (n=7), cutaneous metastases (CM) samples (n=9), regional lymph node metastases (LN) samples (n=23), and distant metastases (DM) samples (n=5), originating from various parts of the body, such as the gallbladder, brain, liver, spleen, and breast. The patients included in the study had an average age of 65 years at diagnosis, and 27 of them were male, accounting for 57% of the total.</p>
+<p>The samples were stored as fresh-frozen and prepared for quantitative proteomics using a method previously described [1,2]. Mass spectrometry data was obtained using Q-exactive HF-X, following a high-resolution DIA-MS approach. A customized spectral library was used to search for proteins in the samples, with the Spectronaut search engine. A total of 9040 proteins were confidently identified and quantified using a label-free approach. The data was normalized and standardized by log2 transformation and subtraction by the median.</p>
+<p>This dataset provides a suitable basis for studying proteins involved in the development and progression of melanoma, as well as the tumor proliferation status, BRAF biology, and sample origin.</p>
+<p><strong>Mass spectrometer</strong></p>
+<p>Q-Exactive HF-X (Orbitrap)</p>
+<p><strong>MS data acquisition and quantification</strong></p>
+<p>Data Acquisition method: Data Independent Acquisition (DIA) &ndash; High resolution DIA-MS variable window</p>
+<p>Quantification method: Label-free</p>
+<p>Software: Spectronaut 11</p>
+<p>Search engine: Spectronaut using customized spectral library</p>
+<p>Normalization and standardization: Log2 transformation, subtraction by the median</p>
+<p>&nbsp;</p>
+<p><strong>References:</strong></p>
+<p>1. &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;Gil, J.; Ram&iacute;rez-Torres, A.; Chiappe, D.; Luna-Pen&atilde;loza, J.; Fernandez-Reyes, F.C.; Arcos-Encarnaci&oacute;n, B.; Contreras, S.; Encarnaci&oacute;n-Guevara, S. Lysine Acetylation Stoichiometry and Proteomics Analyses Reveal Pathways Regulated by Sirtuin 1 in Human Cells.&nbsp;<em>J. Biol. Chem.</em> <strong>2017</strong>,&nbsp;<em>292</em>, 18129&ndash;18144, doi:10.1074/jbc.M117.784546.</p>
+<p>2. &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;Gil, J.; Kim, Y.; Szeitz, B.; Doma, V.; &Ccedil;akır, U.; Almeida, N.P. de; Hagemeijer, Y.P.; Guryev, V.; Johansson, J.G.; Sharma, Y.; et al. Proteogenomics Reveals How Metastatic Melanoma Modulates the Immune System to Allow Immune Evasion.&nbsp;<em>bioRxiv</em> <strong>2021</strong>, 2021.04.10.439245, doi:10.1101/2021.04.10.439245.</p>
