@@ -1,0 +1,2 @@
+We have integrated data from nearly 500 melanoma samples and made it publicly accessible through an interactive web platform. This platform enables rapid analysis and visualization of proteomic biomarkers. The application's functions and datasets can be found in the MEL-PLOT folder.
+Additionally, we conducted differential and survival analyses, identifying a set of proteins highly predictive of melanoma progression. The script for this analysis is available under the filename dataAnalysis.
