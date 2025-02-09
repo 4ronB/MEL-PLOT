@@ -1,4 +1,16 @@
-basicPlotter <- function(selVar,InputTab){
+# library(ggplot2)
+# 
+# InputTab <- readRDS(file = "segundoData/segundoData.rds")[[1]]
+# selVar <- "OS_DAYS"
+# infoTab <-  read.table(file = "abbreviationList.csv",header = F,sep = ";")
+# 
+# asd <- basicPlotter(selVar = "Age",InputTab = readRDS(file = "cuartoData/CuartoData.rds")[[1]])
+# 
+# asd$sumPlot
+# asd$sumTab
+
+
+basicPlotter <- function(selVar,InputTab, infoTab){
   redTab <- InputTab[,colnames(InputTab) == selVar]
   
   if (class(redTab) %in% c("character","factor")) {
@@ -42,9 +54,18 @@ basicPlotter <- function(selVar,InputTab){
     
   }
   
-  res <- list(sumPlot = sumPlot, sumTab = sumTab)
+  if (selVar %in% infoTab$V1) {
+    dataToDisplay <- paste0("Explanation of ",'"',as.character(infoTab[infoTab$V1 == selVar,1]),'"',": ",as.character(infoTab[infoTab$V1 == selVar,2]))
+  } else {dataToDisplay <- NULL}
+  
+  res <- list(sumPlot = sumPlot, sumTab = sumTab, dataToDisplay = dataToDisplay)
   return(res)
   
 }
+
+
+
+
+
 
  

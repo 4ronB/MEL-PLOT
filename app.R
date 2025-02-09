@@ -6,9 +6,12 @@ library(shinymanager)
 library(shinyjs)
 library(DT)
 library(plotly)
+library(scales)
+
 #All Data
 allClins <- readRDS(file = "AllData.rds")[[1]]
 allNames <- readRDS(file = "AllData.rds")[[2]]
+infoTab <-  read.table(file = "www/abbreviationList.csv",header = F,sep = ";")
 ###Cero data
 clinicalTableCero <- readRDS(file = "ceroData/ceroData.rds")[[1]] 
 expTableCero <- readRDS(file = "ceroData/ceroData.rds")[[2]]
@@ -49,7 +52,8 @@ devInfo <- tagList(
   img(src = "LundUniversity_Logo.png", height = 110, width = 110),
   br(),
   br(),
-  "All rights reserved, copyright  © 2021-2024. How to cite: manuscript under preparation.",
+  "All rights reserved, copyright  © 2021-2025. How to cite: manuscript under preparation.",
+  a("GitHub repository", href = "https://github.com/4ronB/MEL-PLOT", target = "_blank"),
   br(),
   br()
 )
@@ -63,8 +67,9 @@ Features_UI <- function(id, clinicalTab) {
                                       selected = "SampleType"
     )),
     fluidRow(column(plotOutput(ns("featurePlot")),width = 8)),
-    fluidRow(tableOutput(ns("featureTable")))
-    
+    fluidRow(tableOutput(ns("featureTable"))),
+    fluidRow(textOutput(ns("featureDetail"))),
+    br()
     ),
   )
 }
@@ -72,9 +77,11 @@ Features_Server <- function(id, clinicalTab) {
   moduleServer(
     id,
     function(input, output, session) {
-      doFeature <- eventReactive(input$featureSelect,{basicPlotter(selVar = input$featureSelect,InputTab = clinicalTab)})
+      doFeature <- eventReactive(input$featureSelect,{basicPlotter(selVar = input$featureSelect,InputTab = clinicalTab, infoTab = infoTab)})
       output$featurePlot <- renderPlot(doFeature()$sumPlot)
       output$featureTable <- renderTable(doFeature()$sumTab,rownames = FALSE)
+      output$featureDetail <- renderText(doFeature()$dataToDisplay)
+      
     }
   )
 }
@@ -112,11 +119,14 @@ groupComparerUI <- function(id,clinTable, featureNames1,featureNames2, sliderNam
                                          round(max(clinTable[,colnames(clinTable) == sliderName1]), digits = 1))
                    ),
                    actionButton(inputId = ns("GroupAction"), label = "Start analysis"),
-                   devInfo
+                   devInfo,
+                   
+                   uiOutput(ns("downloadExpTabUiButton"))
       ),
-      mainPanel(plotlyOutput(outputId = ns("groupCompPlot"), height = 510, width = 810),
-                br(),
-                uiOutput(ns("downloadExpTabUiButton"))
+      mainPanel(
+        plotlyOutput(outputId = ns("groupCompPlot")),
+        #plotOutput(outputId = ns("groupCompPlot")),
+                br()
       )
     )
   )
@@ -126,9 +136,9 @@ groupComparerServer <- function(id, proteinNames,exptable,clinTable,histVars,dow
     id,
     function(input, output, session) {
       updateSelectizeInput(session, "groupProtein", choices = proteinNames, server = TRUE, options = list(placeholder = 'Type protein name or Uniprot ID'))
-      
+      doProt <- eventReactive(input$GroupAction,{input$groupProtein})
       doGroupComp <- eventReactive(input$GroupAction,{
-        groupComparer(proteinName = input$groupProtein,
+        groupComparer(proteinName = doProt(),
                       xAxis = input$featureSelector,  
                       jitterVariable = input$furtherFeatureSelector, 
                       histParams = input$AdjustSlider1,
@@ -137,7 +147,16 @@ groupComparerServer <- function(id, proteinNames,exptable,clinTable,histVars,dow
                       clinTable = clinTable,
                       proteins = proteinNames
         )})
-      output$groupCompPlot <- renderPlotly(ggplotly(doGroupComp()$boxPlot,tooltip = c("y", "x", "jitterVariable" )))
+      
+      output$groupCompPlot <- renderPlotly(ggplotly(doGroupComp()$boxPlot,
+                                                      #width = 1500,
+                                                      height = 650*length(doProt()),
+                                                      #width = cdata$output_groupCompPlot_width, #
+                                                      #height = cdata$output_groupCompPlot_height, #
+                                                      tooltip = c("y", "x", "jitterVariable" )))
+      
+      #output$groupCompPlot <- renderPlot(doGroupComp()$boxPlot)
+        
       
       output$downloadExpTabUiButton <- renderUI({
         ns <- NS(id)
@@ -285,7 +304,7 @@ ui <-
                         tabPanel(strong("Group comparison"),
                                  groupComparerUI(id="ceroGroupComparer",
                                                  clinTable = clinicalTableCero,
-                                                 featureNames1 = c("SampleType", "Age","Sex","AJCC8_stage","MelanomaSubType", "Clark_level","BRAFstatus", "Breslow_stage"),
+                                                 featureNames1 = c("SampleType","Sex","AJCC8_stage","MelanomaSubType", "Clark_level","BRAFstatus", "Breslow_stage"),
                                                  featureNames2 = c("SampleType","Tumor_content","Age","Sex","PFS(months)","OS(months)","AJCC8_stage","MelanomaSubType","Clark_level","Breslow_thickness","BRAFstatus","Breslow_stage"), 
                                                  sliderName1 = "Tumor_content")
                                  ),
@@ -335,7 +354,7 @@ ui <-
                         tabPanel(strong("Group comparsion"),
                                  groupComparerUI(id="primeroGroupComparer",
                                                  clinTable = clinicalTablePrimero,
-                                                 featureNames1 = c("Sex","AJCC8_stage","stage","SampleType","Age","NRAS","BRAFstatus"),
+                                                 featureNames1 = c("Sex","AJCC8_stage","stage","SampleType","NRAS","BRAFstatus"),
                                                  featureNames2 = c("Age","AJCC8_stage","stage","SampleType","Sex","NRAS","BRAFstatus"),
                                                  sliderName1 = "Average_of_Tumor(%)")
                                  ),
@@ -351,7 +370,7 @@ ui <-
                         tabPanel(strong("Group comparsion"),
                                  groupComparerUI(id="segundoGroupComparer",
                                                  clinTable = clinicalTableSegundo,
-                                                 featureNames1 =  c("Sex","AJCC8_stage","SampleType","Breslow_stage","MelanomaSubtype","DistMetLocation","NRAS","BRAFstatus"),
+                                                 featureNames1 =  c("Sex","AJCC8_stage","SampleType","Breslow_stage","MelanomaSubtype","NRAS","BRAFstatus"),
                                                  featureNames2 =  c("Sex","AJCC8_stage","SampleType","Age","Breslow_thickness","Breslow_stage","Clark_level","MelanomaSubtype","OS_DAYS","DistMetLocation","NRAS","BRAFstatus"), 
                                                  sliderName1 = "Tumor_content")
                                  ),
@@ -395,7 +414,7 @@ ui <-
                         tabPanel(strong("Group comparsion"),
                                  groupComparerUI(id="terceroGroupComparer",
                                                  clinTable = clinicalTableTercero,
-                                                 featureNames1 = c("SampleType","BRAFstatus","NRAS","cKIT","Origin","Sex","Age","OS.months","Primary_localization","Clark_level","Breslow_thickness","MelanomaSubtype"),
+                                                 featureNames1 = c("SampleType","BRAFstatus","NRAS","cKIT","Sex","Primary_localization","Clark_level","MelanomaSubtype","Origin"),
                                                  featureNames2 = c("SampleType","BRAFstatus","NRAS","cKIT","Origin","Sex","Age","OS.months","Primary_localization","Clark_level","Breslow_thickness","MelanomaSubtype"),
                                                  sliderName1 = "Tumor_T")
                                  ),
@@ -413,7 +432,7 @@ ui <-
                         tabPanel(strong("Group comparsion"),
                                  groupComparerUI(id="cuartoGroupComparer",
                                                  clinTable = clinicalTableCuarto,
-                                                 featureNames1 = c("Sex","AJCC8_stage","MelanomaSubtype","Clark_level","Breslow_thickness","SampleType","BRAFstatus"),
+                                                 featureNames1 = c("Sex","AJCC8_stage","MelanomaSubtype","Clark_level","SampleType","BRAFstatus"),
                                                  featureNames2 = c("Age","Sex","AJCC8_stage","MelanomaSubtype","Clark_level","Breslow_thickness","SampleType","BRAFstatus","Tumor_content"),
                                                  sliderName1 = "Tumor_content")
                                  ),

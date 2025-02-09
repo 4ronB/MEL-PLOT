@@ -20,19 +20,19 @@
 # clinTableCuarto <- readRDS(file = "cuartoData/cuartoData.rds")[[1]]
 # expTableCuarto <- readRDS(file = "cuartoData/cuartoData.rds")[[2]]
 # proteinNamesCuarto <- readRDS(file = "cuartoData/cuartoData.rds")[[3]]
+#
 # #
-# #
-# proteinName <-  proteinNamesCuarto[8594:8596]
-# xAxis <- "SampleType"
+# proteinName <-  proteinNamesCero[4]
+# xAxis <- "MelanomaSubType"
 # jitterVariable <- "Age"
 # ## histParams <- list("Tumor_T" = c(0,99),
 # ##                    "Necrosis_T" = c(0,37.5),
 # ##                    "AdjTissue_T" = c(0,95))
 # histVars <- "Tumor_content"
 # histParams <- c(0,99)
-# expTable <- expTableCuarto
-# clinTable <- clinTableCuarto
-# proteins <- proteinNamesCuarto
+# expTable <- expTableCero
+# clinTable <- clinicalTableCero
+# proteins <- proteinNamesCero
 
 
 groupComparer <- function(proteinName, xAxis,  jitterVariable,histVars, histParams, expTable, clinTable,proteins){
@@ -79,16 +79,31 @@ groupComparer <- function(proteinName, xAxis,  jitterVariable,histVars, histPara
     #   
     # }
     
+    # #function to add \n after every 20 chars
+    # add_newline <- function(text) {
+    #   wrapped_text <- strwrap(text, width = 20)
+    #   return(paste(wrapped_text, collapse = " \n "))
+    # }
+    # 
+    # modified_text <- sapply(tableForPlot$xAxisVariable, add_newline)
+    # shortName <- c(modified_text, sep = "\n")
+    # 
+    # tableForPlot$xAxisVariable <- shortName
+
+    
     boxPlot <- ggplot(data = tableForPlot, aes(y = proteinIntensity, x = xAxisVariable)) +
-      geom_violin(alpha = 0.6, scale = "width")+
-      geom_jitter(aes(colour = jitterVariable),fill = jitterVariable) +
-      {if (jitterVariable == xAxis) {
-        scale_color_manual(values = as.character(rep.int(x = "black",times = length(unique(tableForPlot$jitterVariable)))))}}+
+      geom_violin(alpha = 0.6, scale = "count")+
+      geom_jitter(aes(colour = jitterVariable)) +
+      #geom_jitter(aes(colour = jitterVariable),fill = jitterVariable) +
+      # {if (jitterVariable == xAxis) {
+      #   scale_color_manual(values = as.character(rep.int(x = "black",times = length(unique(tableForPlot$jitterVariable)))))}}+
       labs(colour=jitterVariable, fill = xAxis, x = xAxis, 
            y = paste0("Log2 intensity of \n", names(proteins[proteins %in% proteinName])))+
+      scale_x_discrete(labels = label_wrap(20)) +
       theme_minimal() +
       theme(legend.position="bottom",
-            axis.text.x = element_text(size = 13, colour = "black"),
+            axis.text.x = element_text(size = 13, colour = "black", angle = 90, vjust = 0.5),
+            #axis.text.x = element_text(size = 13, colour = "black"),
             axis.text.y = element_text(size = 13, colour = "black"),
             axis.title.y = element_text(size = 13, face = "bold"),
             axis.title.x = element_text(size = 13, face = "bold"))
@@ -134,29 +149,29 @@ groupComparer <- function(proteinName, xAxis,  jitterVariable,histVars, histPara
       
     }
     
-    # if (xAxis %in% c("Patient",	"BRAF",	"NRAS",	"cKIT",	"Origin",	"Gender",	"Primary.loc",	"Clark",	"Exulceration",
-    #                  "Histological.subtype",	"Treatments",	"Treatments.grouped")) {
-    #   tableForPlot$xAxisVariable <- as.factor(tableForPlot$xAxisVariable)
-    # }
-    
-    
-    boxPlot <- ggplot(data = tableForPlot, aes(x = protein, y = proteinIntensity, fill = xAxisVariable)) +
-      geom_violin(alpha =1)+
-      geom_vline(xintercept=seq(1.5, length(proteinName)-0.5, 1), colour="black")+
-      #geom_violin(alpha = 1)+
-      geom_jitter(aes(colour = jitterVariable),fill = jitterVariable) +
-      {if (jitterVariable == xAxis) {
-        scale_color_manual(values = as.character(rep.int(x = "black",times = length(unique(tableForPlot$jitterVariable)))))}} +
-      labs(colour=jitterVariable, fill = xAxis, y= NULL, x = "Protein intensities (log2)")+
+    boxPlot <- ggplot(data = tableForPlot, aes(x = xAxisVariable, y = proteinIntensity)) +
+      geom_violin(aes(fill = xAxisVariable),alpha =0.75, scale = "count") + 
+      #geom_vline(xintercept=seq(1.5, length(proteinName)-0.5, 1), colour="black")+
+      geom_jitter(aes(colour = jitterVariable)) +
+      # {if (jitterVariable == xAxis) {
+      #   scale_color_manual(values = as.character(rep.int(x = "black",times = length(unique(tableForPlot$jitterVariable)))))}} +
+      labs(colour=jitterVariable, fill = xAxis, x = NULL, y = "Protein intensities (log2)")+
       guides(fill=guide_legend(title= xAxis)) +
+      facet_wrap(~protein, scales = "fixed",nrow = length(proteinName), strip.position = "left")+
       coord_flip()+
       theme(legend.position="bottom",
-            axis.text.x = element_text(size = 13, colour = "black"),
-            axis.text.y = element_text(size = 13, colour = "black", face = "bold"),
+            axis.text.y = element_blank(),
+            axis.ticks.y = element_blank(),
+            axis.text.x = element_text(size = 13, colour = "black", face = "bold"),
             axis.title.y = element_text(size = 13, face = "bold"),
-            axis.title.x = element_text(size = 13, face = "bold"))
-    
+            axis.title.x = element_text(size = 13, face = "bold"),
+            strip.background = element_blank(),
+            strip.placement = "outside"
+            )
+
+    # boxPlot
     #ggplotly(boxPlot)
+    
     downloadTable <- tableForPlot
     colnames(downloadTable)[2] <- xAxis
     colnames(downloadTable)[3] <- jitterVariable
