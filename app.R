@@ -52,8 +52,10 @@ devInfo <- tagList(
   img(src = "LundUniversity_Logo.png", height = 110, width = 110),
   br(),
   br(),
-  "All rights reserved, copyright  © 2021-2025. How to cite: manuscript under preparation.",
-  a("GitHub repository", href = "https://github.com/4ronB/MEL-PLOT", target = "_blank"),
+  "All rights reserved, copyright  © 2021-2025. How to cite: ",
+  a("Melanoma Proteomics Unveiled: Harmonizing Diverse Data Sets for Biomarker Discovery and Clinical Insights via MEL-PLOT \n
+    Journal of Proteome Research 24 (6), 3117-3128",
+    href = "https://pubs.acs.org/doi/full/10.1021/acs.jproteome.4c00749", target = "_blank"),
   br(),
   br()
 )
